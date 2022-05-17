@@ -64,8 +64,28 @@ router.post('/', async (req, res) => {
 // @route   PUT api/payments/:id
 // @desc    Update a payment (due) for a creditor
 // @access  Public
-router.put('/:id', (req, res) => {
-    res.send('Update a payment due to a creditor');
+router.put('/:id', async (req, res) => {
+    console.log(req.body);
+
+    try {
+        let payment = await Payment.findById(req.params.id);
+        if (!payment) {
+            return res.status(400).json({ msg: 'Payment does not exist' });
+        }
+        const { _id, statementDate, currentBalance, minimumPayment, paidDate, comments } = req.body;
+        await Payment.findByIdAndUpdate(req.params.id, 
+            {
+                statementDate,
+                currentBalance,
+                minimumPayment,
+                paidDate,
+                comments
+            })
+        res.json(payment);
+    } catch (err) {
+        console.error(err.message);
+        return res.status(500).send("Server Error");
+    }
 });
 
 // @route   DELETE api/payments/:id

@@ -112,20 +112,14 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
 
     try {
-    // res.send('Create a creditor');
-
-    let creditor = Creditor.findById(req.params.id);
-
-    if (!creditor) return res.status(404).json({ mes: 'Creditor Not Found'});
-
-    await Creditor.findByIdAndRemove(req.params.id);
-    res.json({ msg: 'Creditor removed'})
+        let creditor = Creditor.findById(req.params.id);
+        if (!creditor) return res.status(404).json({ mes: 'Creditor Not Found'});
+        await Creditor.findByIdAndRemove(req.params.id);
+        res.json({ msg: 'Creditor removed'})
     } catch (err) {
         console.error(err.message);
         return res.status(500).send("Server Error");
     }
-
-
 });
 
 module.exports = router;
