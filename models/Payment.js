@@ -21,9 +21,10 @@ const PaymentSchema = mongoose.Schema({
         type: String,
         required: false
     },    
-    Creditor: [{
-        type: mongoose.Schema.Types.ObjectId, ref: "Creditor"
-    }]    
+    creditorId: { 
+        type: String,
+        required: true
+    }
 });
 
 
