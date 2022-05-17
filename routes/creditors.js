@@ -48,7 +48,6 @@ router.post('/',
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
-        
 
         const { companyName, cardholderName, cardType, endingIn, interestRate } = req.body;
 
@@ -66,24 +65,46 @@ router.post('/',
                 endingIn,
                 interestRate
             });
-
             await creditor.save();
-
             res.send("Creditor Saved");
 
         } catch (err) {
             console.error(err.message);
             return res.status(500).send("Server Error");
         }
-
     }
 );
 
 // @route   PUT api/creditors/:id
 // @desc    Update a creditor (credit card company)
 // @access  Public
-router.put('/:id', (req, res) => {
-    res.send('Update a creditor');
+router.put('/:id', async (req, res) => {
+    console.log(req.body);
+    // res.send(req.body);
+
+    try {
+        let creditor = await Creditor.findById(req.params.id);
+        console.log(creditor);
+
+        if (!creditor) {
+            return res.status(400).json({ msg: 'Creditor doesn\'t exist' });
+        }
+
+        const { _id, companyName, cardholderName, cardType, endingIn, interestRate } = req.body;
+
+        await Creditor.findByIdAndUpdate(_id,
+            {
+                companyName,
+                cardholderName,
+                cardType,
+                endingIn,
+                interestRate
+            });
+        res.json(creditor);
+    } catch (err) {
+        console.error(err.message);
+        return res.status(500).send("Server Error");
+    }
 });
 
 // @route   DELETE api/creditors/:id
