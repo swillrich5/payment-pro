@@ -84,7 +84,6 @@ router.put('/:id', async (req, res) => {
 
     try {
         let creditor = await Creditor.findById(req.params.id);
-        console.log(creditor);
 
         if (!creditor) {
             return res.status(400).json({ msg: 'Creditor doesn\'t exist' });

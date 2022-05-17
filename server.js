@@ -14,7 +14,8 @@ app.get('/', (req, res) =>
 );
 
 // Define Routes
-app.use('/api/creditors', require('./routes/creditors'))
+app.use('/api/creditors', require('./routes/creditors'));
+app.use('/api/payments', require('./routes/payments'));
 
 const PORT = process.env.PORT || 5001;
 

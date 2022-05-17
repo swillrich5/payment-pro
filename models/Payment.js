@@ -17,11 +17,14 @@ const PaymentSchema = mongoose.Schema({
         type: Date,
         required: false
     },
-    Comments: {
+    comments: {
         type: String,
         required: false
     },    
-    Creditor: {
-        type: Schema.Types.ObjectId, ref: "Creditor"
-    },    
-})
+    Creditor: [{
+        type: mongoose.Schema.Types.ObjectId, ref: "Creditor"
+    }]    
+});
+
+
+module.exports = mongoose.model('payment', PaymentSchema);
