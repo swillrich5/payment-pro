@@ -7,8 +7,16 @@ const Creditor = require('../models/Creditor');
 // @route   GET api/creditors
 // @desc    Get a list of all the creditors
 // @access  Public
-router.get('/', (req, res) => {
-    res.send('Get a list of all the creditors');
+router.get('/', async (req, res) => {
+    try {
+        const creditors = await Creditor.find();  
+        res.json(creditors);    
+        // console.log(creditors);
+
+    } catch (err) {
+        console.error(err.message);
+        return res.status(500).send("Server Error");
+    }
 });
 
 // @route   GET api/creditors/:id
