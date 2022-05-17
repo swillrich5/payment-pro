@@ -71,8 +71,17 @@ router.put('/:id', (req, res) => {
 // @route   DELETE api/payments/:id
 // @desc    Delete a payment (due) for a creditor
 // @access  Public
-router.delete('/:id', (req, res) => {
-    res.send('Delete a payment due to a creditor');
+router.delete('/:id', async (req, res) => {
+    try {
+        let payment = Payment.findById(req.params.id);
+        if (!payment) return res.status(404).json({ mes: 'Payment Not Found'});
+
+        await Payment.findByIdAndRemove(req.params.id);
+        res.json({ msg: 'Payment removed'})
+    } catch (err) {
+        console.error(err.message);
+        return res.status(500).send("Server Error");
+    }
 });
 
 module.exports = router;
