@@ -3,7 +3,7 @@ const router = express.Router();
 
 const Payment = require('../models/Payment');
 
-// @route   GET api/payments
+// @route   GET api/payments/:creditorId
 // @desc    Get all payments for a creditor
 // @access  Public
 router.get('/:creditorId', async (req, res) => {
@@ -18,6 +18,24 @@ router.get('/:creditorId', async (req, res) => {
         return res.status(500).send("Server Error");        
     }
 });
+
+
+// @route   GET api/payments/:id
+// @desc    Get a particular payment by id
+// @access  Public
+router.get('/payment/:id', async (req, res) => {
+    // res.send('Get payment record(s) for a creditor');
+
+    try {
+        const payment = await Payment.findById(req.params.id);
+        console.log(payment);
+        res.json(payment);
+    } catch (err) {
+        console.error(err.message);
+        return res.status(500).send("Server Error");        
+    }
+});
+
 
 // @route   POST api/payments
 // @desc    Create a payment (due) for a creditor
