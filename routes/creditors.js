@@ -24,15 +24,42 @@ router.get('/:id', (req, res) => {
 router.post('/', 
     [
         // using express-validator to validate incoming data
-        check('creditorName', 'Creditor name is required').not().isEmpty(),
+        check('companyName', 'Company name is required').not().isEmpty(),
         check('cardholderName', 'Cardholder Name is Required').not().isEmpty()
     ],
-    (req, res) => {
+    async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
-        res.send('passed');
+        
+
+        const { companyName, cardholderName, cardType, endingIn, interestRate } = req.body;
+
+        try {
+            let creditor = await Creditor.findOne({ endingIn });
+
+            if (creditor) {
+                return res.status(400).json({ msg: 'Creditor already exists' });
+            }
+
+            creditor = new Creditor({
+                companyName,
+                cardholderName,
+                cardType,
+                endingIn,
+                interestRate
+            });
+
+            await creditor.save();
+
+            res.send("Creditor Saved");
+
+        } catch (err) {
+            console.error(err.message);
+            return res.status(500).send("Server Error");
+        }
+
     }
 );
 
