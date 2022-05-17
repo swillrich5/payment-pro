@@ -17,6 +17,10 @@ const PaymentSchema = mongoose.Schema({
         type: Date,
         required: false
     },
+    Comments: {
+        type: String,
+        required: false
+    },    
     Creditor: {
         type: Schema.Types.ObjectId, ref: "Creditor"
     },    
