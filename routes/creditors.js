@@ -22,8 +22,16 @@ router.get('/', async (req, res) => {
 // @route   GET api/creditors/:id
 // @desc    Get a creditor (credit card company)
 // @access  Public
-router.get('/:id', (req, res) => {
-    res.send('Get a particular creditor by id');
+router.get('/:id', async (req, res) => {
+    try {
+        const creditors = await Creditor.findById(req.params.id);  
+        res.json(creditors);    
+        // console.log(creditors);
+
+    } catch (err) {
+        console.error(err.message);
+        return res.status(500).send("Server Error");
+    }
 });
 
 // @route   POST api/creditors
