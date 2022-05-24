@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import thumbsUp from '../../images/scott-thumbs-up.png';
+// import thumbsUp from '../../images/scott-thumbs-up.png';
 import './Navbar.css';
 
 const Navbar = ({ title, icon }) => {
   return (
     <nav className="navbar navbar-expand-lg bg-primary navbar-dark">
-    <Link to='/' ><img id="navbar-logo" src={thumbsUp} Pro alt="pic" /></Link>
+    {/* <Link to='/' ><img id="navbar-logo" src={thumbsUp} Pro alt="pic" /></Link> */}
     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
     </button>
