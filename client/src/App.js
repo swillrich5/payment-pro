@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 // Switch has been replaced by Routes in react-router-dom
 import  { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
-import './App.css';
+// import './App.css';
 import Home from './components/pages/Home';
 import About from './components/pages/About';
 
