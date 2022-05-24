@@ -5,6 +5,7 @@ import Navbar from './components/layout/Navbar';
 // import './App.css';
 import Home from './components/pages/Home';
 import About from './components/pages/About';
+import CreditorEntry from './components/pages/CreditorEntry';
 
 
 const App = () => {
@@ -17,6 +18,7 @@ const App = () => {
               {/* In react v6, component was replaced by element */}
               <Route exact path='/' element={ <Home />} />
               <Route exact path='/about' element={ <About/>} />
+              <Route exact path='/creditor' element={ <CreditorEntry/>} />
             </Routes>
           </div>
       </Fragment>

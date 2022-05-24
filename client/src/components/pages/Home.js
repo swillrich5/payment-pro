@@ -29,6 +29,7 @@ const Home = () => {
     } else {
       return (
         <div>
+          <h2>This page will display all of the bills, highlighting those that are due.</h2>
           {(!loading) && creditors.map(creditor => {
               return (
                 <p key={ creditor._id}>{creditor.companyName}</p>
