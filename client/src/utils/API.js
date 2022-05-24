@@ -5,8 +5,12 @@ import axios from 'axios';
         return axios.get("/api/creditors/")
     }
 
+    const saveCreditor = (creditorData) => {
+        return axios.post("/api/creditors/", creditorData);
+    }
+
     const creditors = {
-        getCreditors
+        getCreditors, saveCreditor
     };
 
     export default creditors;
