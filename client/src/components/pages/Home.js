@@ -18,7 +18,7 @@ const Home = () => {
           setCreditors(res.data);
           setLoading(false);
         }
-        return () => { ignore = true}
+        return () => { ignore = true }
       })
   }, []);
 
