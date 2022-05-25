@@ -22,7 +22,10 @@ const Navbar = ({ title, icon }) => {
                 </li>
                 <li className="nav-item">
                     <Link className="nav-link" to='/creditor'>Creditor Entry</Link>  
-                </li>                
+                </li>              
+                <li className="nav-item">
+                    <Link className="nav-link" to='/payment'>Payment Entry</Link>  
+                </li>    
                 <li className="nav-item">
                     <Link className="nav-link" to='/about'>About</Link>  
                 </li>
