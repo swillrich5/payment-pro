@@ -5,7 +5,7 @@ import Heading from '../layout/Heading';
 
 const PaymentEntry = () => {
 
-    const [statementDate, setStatementDate] = useState("");
+    const [statementDate, setStatementDate] = useState(new Date());
     const [currentBalance, setCurrentBalance] = useState("");
     const [minimumPayment, setMinimumPayment] = useState("");
     const [paidDate, setPaidDate] = useState("");
@@ -32,6 +32,15 @@ const PaymentEntry = () => {
 
     }
 
+    const currentBalanceChange = (e) => {
+        setCurrentBalance(e.target.value);
+    }
+
+    const statementDateChange = (e) => {
+        console.log(e.target.value);
+        setStatementDate(e.target.value);
+    }
+
 
     const handleCreditorChange = (e) => {
         setCreditorId(e.target.value);
@@ -45,20 +54,31 @@ const PaymentEntry = () => {
             )
         } else {
             return (
-                <div>
+                <div className="jumbotron">
                     <Heading />
-                    <div className="container px-6">
+                    <div className="px-6">
                         <form className="text-primary col-8 mx-auto mt-5" onSubmit={handleSubmit}>
                             <div className="row ml-1">
                                 { creditors.length ? (
-                                    <div>
-                                        <select name="creditorCode" className="form-group" onChange={(e) => handleCreditorChange(e)}>
+                                    <div className="row mx-auto text-center">
+                                        <label className="col-5 lead font-weight-bold" htmlFor="creditorCode">Company Name</label>
+                                        <select name="creditorCode" className="form-control col-7" onChange={(e) => handleCreditorChange(e)}>
                                             <option>Select Creditor for Payment Due</option>
                                             { creditors.map(creditor => {
                                                 return(<option key={creditor._id} value={creditor._id}>{creditor.companyName} - {creditor.endingIn}</option>
                                             )})}
                                         </select>
                                     </div> ) : <div>""</div> }
+                            </div>
+                            <div className="row ml-1 mt-4">
+                                <div className="form-group col-xs-1">
+                                    <label className="lead font-weight-bold" htmlFor="statementDate">Statement Date</label>
+                                    <input onChange={statementDateChange} name="statementDate" type="date" className="form-control" id="statementDate"/>
+                                </div>
+                                <div className="form-group ml-5">
+                                    <label className="lead font-weight-bold" htmlFor="currentBalance">Current Balance</label>
+                                    <input type="text" name="currentBalance" value={ currentBalance } onChange={(e) => currentBalanceChange(e)} className="form-control" id="request-title" placeholder="" />
+                                </div>                        
                             </div>
                         </form>
                     </div>
