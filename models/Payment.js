@@ -5,6 +5,10 @@ const PaymentSchema = mongoose.Schema({
         type: Date,
         required: true
     },
+    dueDate: {
+        type: Date,
+        required: true
+    },
     currentBalance: {
         type: Number,
         required: true
