@@ -109,10 +109,10 @@ const PaymentEntry = () => {
             <div className="jumbotron">
                 <Heading />
                 <div className="px-6">
-                    <div>
-                        <h2>Payment Entry</h2>
-                    </div>
-                    <form className="text-primary col mx-auto mt-5" onSubmit={handleSubmit}>
+                <div className="text-center pt-3">
+                    <h2 className="text-primary pl-3 font-weight-bold">Payment Entry</h2>
+                </div>
+                    <form className="text-primary col mx-auto mt-4" onSubmit={handleSubmit}>
                         <div className="row ml-1">
                             { creditors.length ? (
                                 <div className="row form-group mx-auto">
