@@ -6,34 +6,26 @@ import './Navbar.css';
 
 const Navbar = ({ title, icon }) => {
   return (
-    <nav className="navbar navbar-expand-lg bg-primary navbar-dark">
-    {/* <Link to='/' ><img id="navbar-logo" src={thumbsUp} Pro alt="pic" /></Link> */}
-    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span className="navbar-toggler-icon"></span>
-    </button>
-    <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div className="nav navbar-nav">
-            <ul className="navbar-nav">
-                <li className="nav-item">
-                <Link className="nav-link" to='/'>Payment Pro</Link>
-                </li>             
-                <li className="nav-item">
-                    <Link className="nav-link" to='/'>Home</Link>
-                </li>
-                <li className="nav-item">
-                    <Link className="nav-link" to='/creditor'>Creditor Entry</Link>  
-                </li>              
-                <li className="nav-item">
-                    <Link className="nav-link" to='/payment'>Payment Entry</Link>  
-                </li>    
-                <li className="nav-item">
-                    <Link className="nav-link" to='/about'>About</Link>  
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-  )
+        <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+            <Link className="navbar-brand" to="/">Payment Pro</Link>
+            <button className="navbar-toggler navbar-dark bg-primary" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span className="navbar-toggler-icon navbar-dark bg-primary"></span>
+            </button>   
+            <div className="collapse navbar-collapse navbar-dark bg-primary" id="navbarSupportedContent">
+                <ul className="navbar-nav mr-auto navbar-dark bg-primary">
+                    <li className="nav-item dropdown navbar-dark bg-primary">
+                        <a className="nav-link dropdown-toggle" href="/" id="navbarDropdown" data-toggle="dropdown">Data Entry</a>
+                        <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <Link className="nav-link dropdown-item navbar-dark bg-primary" to='/'>Home</Link>
+                            <Link className="nav-link dropdown-item navbar-dark bg-primary" to='/creditor'>Creditor Entry</Link> 
+                            <Link className="nav-link dropdown-item navbar-dark bg-primary" to='/payment'>Payment Entry</Link>  
+                            <Link className="nav-link dropdown-item navbar-dark bg-primary" to='/about'>About</Link>  
+                        </div>
+                    </li>
+                </ul>
+            </div>                     
+        </nav>
+    )
 }
 
 Navbar.propTypes = {
