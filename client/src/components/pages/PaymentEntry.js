@@ -14,10 +14,15 @@ const PaymentEntry = () => {
     const [creditorId, setCreditorId] = useState("");
     const [creditors, setCreditors] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [messageOne, setMessageOne] = useState("");    
 
     useEffect(() => {
+        loadCreditors();
+    }, []);
+
+    let loadCreditors = async () => {
         let ignore = false;
-        API.getCreditors()
+        await API.getCreditors()
             .then(res => {
                 console.log(res.data);
                 if (!ignore) {
@@ -26,7 +31,7 @@ const PaymentEntry = () => {
                 }
             })
             return () => { ignore = true }
-    }, []);
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -46,7 +51,18 @@ const PaymentEntry = () => {
             console.log(err);
         });        
 
-
+        setMessageOne("Payment Saved");
+        const timer = setTimeout(() => {
+            setStatementDate("");
+            setDueDate("");
+            setCurrentBalance("");
+            setMinimumPayment("");
+            setPaidDate("");
+            setComments("");
+            setMessageOne("");
+            setCreditors(loadCreditors())
+        }, 3000 );
+        return () => clearTimeout(timer);
 
     }
 
@@ -84,71 +100,67 @@ const PaymentEntry = () => {
     }    
 
 
-        if (loading) {
-            return(
-                <Spinner />
-            )
-        } else {
-            return (
-                <div className="jumbotron">
-                    <Heading />
-                    <div className="px-6">
-                        <form className="text-primary col mx-auto mt-5" onSubmit={handleSubmit}>
-                            <div className="row ml-1">
-                                { creditors.length ? (
-                                    <div className="row form-group mx-auto">
-                                        <label className="lead font-weight-bold mr-2" htmlFor="creditorCode">Company Name</label>
-                                        <select name="creditorCode" className="form-control col-7" onChange={(e) => handleCreditorChange(e)}>
-                                            <option>Select Creditor for Payment Due</option>
-                                            { creditors.map(creditor => {
-                                                return(<option key={creditor._id} value={creditor._id}>{creditor.companyName} - {creditor.endingIn}</option>
-                                            )})}
-                                        </select>
-                                    </div> ) : <div>""</div> }
+    if (loading) {
+        return(
+            <Spinner />
+        )
+    } else {
+        return (
+            <div className="jumbotron">
+                <Heading />
+                <div className="px-6">
+                    <form className="text-primary col mx-auto mt-5" onSubmit={handleSubmit}>
+                        <div className="row ml-1">
+                            { creditors.length ? (
+                                <div className="row form-group mx-auto">
+                                    <label className="lead font-weight-bold mr-2" htmlFor="creditorCode">Company Name</label>
+                                    <select name="creditorCode" className="form-control col-7" onChange={(e) => handleCreditorChange(e)}>
+                                        <option>Select Creditor for Payment Due</option>
+                                        { creditors.map(creditor => {
+                                            return(<option key={creditor._id} value={creditor._id}>{creditor.companyName} - {creditor.endingIn}</option>
+                                        )})}
+                                    </select>
+                                </div> ) : <div>""</div> }
+                        </div>
+                        <div className="row ml-1">
+                            <div className=" col form-group">
+                                <label className="lead font-weight-bold" htmlFor="statementDate">Statement Date</label>
+                                <input onChange={statementDateChange} value={ statementDate } name="statementDate" type="date" className="form-control" id="statementDate"/>
                             </div>
-                            <div className="row ml-1">
-                                <div className=" col form-group">
-                                    <label className="lead font-weight-bold" htmlFor="statementDate">Statement Date</label>
-                                    <input onChange={statementDateChange} value={ statementDate } name="statementDate" type="date" className="form-control" id="statementDate"/>
-                                </div>
-                                <div className="col form-group ml-5">
-                                    <label className="lead font-weight-bold" htmlFor="dueDate">Due Date</label>
-                                    <input onChange={dueDateChange} value={ dueDate } name="dueDate" type="date" className="form-control" id="dueDate"/>
-                                </div>  
-                                <div className=" col form-group">
-                                    <label className="lead font-weight-bold" htmlFor="statementDate">Statement Date</label>
-                                    <input onChange={paidDateChange} value={ paidDate } name="paidDate" type="date" className="form-control" id="paidDate"/>
-                                </div>                                                      
+                            <div className="col form-group ml-5">
+                                <label className="lead font-weight-bold" htmlFor="dueDate">Due Date</label>
+                                <input onChange={dueDateChange} value={ dueDate } name="dueDate" type="date" className="form-control" id="dueDate"/>
+                            </div>  
+                            <div className=" col form-group">
+                                <label className="lead font-weight-bold" htmlFor="statementDate">Statement Date</label>
+                                <input onChange={paidDateChange} value={ paidDate } name="paidDate" type="date" className="form-control" id="paidDate"/>
+                            </div>                                                      
+                        </div>
+                        <div className="row ml-1">
+                            <div className="col form-group">
+                            <label className="lead font-weight-bold" htmlFor="currentBalance">Current Balance</label>
+                                <input type="text" name="currentBalance" value={ currentBalance } onChange={(e) => currentBalanceChange(e)} className="form-control" id="request-title" placeholder="" />
                             </div>
-                            <div className="row ml-1">
-                                <div className="col form-group">
-                                <label className="lead font-weight-bold" htmlFor="currentBalance">Current Balance</label>
-                                    <input type="text" name="currentBalance" value={ currentBalance } onChange={(e) => currentBalanceChange(e)} className="form-control" id="request-title" placeholder="" />
-                                </div>
-                                <div className="col form-group ml-5">
-                                    <label className="lead font-weight-bold" htmlFor="minimumPayment">Minimum Payment</label>
-                                    <input type="text" name="minimumPayment" value={ minimumPayment } onChange={(e) => minimumPaymentChange(e)} className="form-control" id="request-title" placeholder="" />
-                                </div>                        
-                            </div>
-                            <div className="row ml-1">
-                                <div className="col form-group">
-                                    <label htmlFor="comments" className="lead font-weight-bold">Comments</label>
-                                    <textarea className="form-control" id="comments" rows="3" name="comments" value={ comments } onChange={(e) => commentsChange(e)}></textarea>
-                                </div>                    
-                            </div>          
-                            <div className="row ml-1 text-center">
-                                    <button type="submit" className="btn btn-primary mx-3 px-3">Save Payment</button>  
-                            </div>                                            
-                        </form>
-                    </div>
+                            <div className="col form-group ml-5">
+                                <label className="lead font-weight-bold" htmlFor="minimumPayment">Minimum Payment</label>
+                                <input type="text" name="minimumPayment" value={ minimumPayment } onChange={(e) => minimumPaymentChange(e)} className="form-control" id="request-title" placeholder="" />
+                            </div>                        
+                        </div>
+                        <div className="row ml-1">
+                            <div className="col form-group">
+                                <label htmlFor="comments" className="lead font-weight-bold">Comments</label>
+                                <textarea className="form-control" id="comments" rows="3" name="comments" value={ comments } onChange={(e) => commentsChange(e)}></textarea>
+                            </div>                    
+                        </div>          
+                        <div className="row ml-1 text-center">
+                                <button type="submit" className="btn btn-primary mx-3 px-3">Save Payment</button>  
+                                { (messageOne.length > 0) && <p className="lead ml-5">{messageOne}</p> }                                    
+                        </div>                                            
+                    </form>
                 </div>
-            )
-        }
-        <div>
-            <Heading />
-            <h3>This page will allow the user to input a payment due record for a creditor.</h3>
-        </div>
-
+            </div>
+        )
+    }
 }
 
 export default PaymentEntry;
