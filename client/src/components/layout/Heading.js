@@ -4,7 +4,7 @@ import '../../index.css';
 
 const Heading = () => {
     return (
-        <div className="text-center pt-4">
+        <div className="text-center">
                 <h1 className="text-primary d-inline acme">Payment</h1>
                 <img id="app-logo" className="" src={thumbsUp} alt="thumbs up pic" />
                 <h1 className="text-primary d-inline acme">Pro</h1>

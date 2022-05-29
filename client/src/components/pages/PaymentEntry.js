@@ -24,15 +24,13 @@ const PaymentEntry = () => {
         let ignore = false;
         await API.getCreditors()
             .then(res => {
-                console.log(res.data);
                 if (!ignore) {
                     let sortedCreditors = res.data.sort((a, b) => { return a.endingIn - b.endingIn } );
-                    console.log(sortedCreditors);
                     setCreditors(sortedCreditors);
                     setLoading(false);
                 }
+                return () => { ignore = true }
             })
-            return () => { ignore = true }
     }
 
     const handleSubmit = (e) => {
@@ -111,6 +109,9 @@ const PaymentEntry = () => {
             <div className="jumbotron">
                 <Heading />
                 <div className="px-6">
+                    <div>
+                        <h2>Payment Entry</h2>
+                    </div>
                     <form className="text-primary col mx-auto mt-5" onSubmit={handleSubmit}>
                         <div className="row ml-1">
                             { creditors.length ? (

@@ -61,22 +61,25 @@ const CreditorEntry = () => {
     }
 
     return (
-        <div>
+        <div className="jumbotron">
             <Heading />
-            <div className="container px-6">
-                <form className="text-primary col-8 mx-auto mt-5" onSubmit={handleSubmit}>
+            <div className="container pt-3">
+                <div className="text-center">
+                    <h2 className="text-primary pl-3 font-weight-bold">Creditor Entry</h2>
+                </div>
+                <form className="text-primary mx-auto mt-5" onSubmit={handleSubmit}>
                     <div className="row ml-1">
-                        <div className="form-group col-xs-5 mr-5 pr-5">
+                        <div className="form-group col mr-5 pr-5">
                             <label className="lead font-weight-bold" htmlFor="exampleFormControlInput1">Company Name</label>
                             <input type="text" name="companyName" value={ companyName } onChange={(e) => companyNameChange(e)} className="form-control" id="request-title" placeholder="Company" />
                         </div>
-                        <div className="form-group col-xs-5 pl-3 ml-5">
+                        <div className="form-group col pl-3 ml-5">
                             <label className="lead font-weight-bold" htmlFor="exampleFormControlInput1">Cardholder Name</label>
                             <input type="text" name="cardholderName" value={ cardholderName } onChange={(e) => cardholderNameChange(e)} className="form-control" id="request-title" placeholder="John Doe" />
                         </div>                        
                     </div>
                     <div className="row ml-1">
-                        <div className="form-group col-xs-3">
+                        <div className="form-group col">
                             <label className="lead font-weight-bold" htmlFor="cardType">Card Type</label>
                             {/* <input type="text" name="cardType" value={ cardType } onChange={(e) => cardTypeChange(e)} className="form-control" id="request-title" placeholder="Visa Mastercard" /> */}
                             <select className="form-control" id="cardType" name="cardType" onChange={(e) => cardTypeChange(e)} value={ cardType }>
@@ -88,18 +91,20 @@ const CreditorEntry = () => {
                                 <option value="other">Other</option>                                
                             </select> 
                         </div>
-                        <div className="form-group col-xs-3 ml-3">
+                        <div className="form-group col ml-3">
                             <label className="lead font-weight-bold" htmlFor="exampleFormControlInput1">Ending In</label>
                             <input type="text" name="endingIn" value={ endingIn } onChange={(e) => endingInChange(e)} className="form-control" id="request-title" placeholder="" />
                         </div>  
-                        <div className="form-group col-xs-3 ml-3">
+                        <div className="form-group col ml-3">
                             <label className="lead font-weight-bold" htmlFor="exampleFormControlInput1">Interest Rate</label>
                             <input type="text" name="interestRate" value={ interestRate } onChange={(e) => interestRateChange(e)} className="form-control" id="request-title" placeholder="" />
                         </div>                               
                     </div>                               
                     <div className="row ml-1">
-                        <button type="submit" className="btn btn-primary btn-lg px-5 font-weight-bold">Submit</button>
-                        { (messageOne.length > 0) && <p className="lead ml-5">{messageOne}</p> }
+                        <div className="form-group col">
+                            <button type="submit" className="btn btn-primary btn px-3 font-weight-bold">Save Creditor</button>
+                            { (messageOne.length > 0) && <p className="lead ml-5">{messageOne}</p> }
+                        </div>
                     </div>
                 </form>
             </div>
