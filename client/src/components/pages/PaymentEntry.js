@@ -26,7 +26,9 @@ const PaymentEntry = () => {
             .then(res => {
                 console.log(res.data);
                 if (!ignore) {
-                    setCreditors(res.data);
+                    let sortedCreditors = res.data.sort((a, b) => { return a.endingIn - b.endingIn } );
+                    console.log(sortedCreditors);
+                    setCreditors(sortedCreditors);
                     setLoading(false);
                 }
             })
