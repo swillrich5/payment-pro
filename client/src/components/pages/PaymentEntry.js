@@ -30,6 +30,23 @@ const PaymentEntry = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        API.savePayment({
+            statementDate: new Date(statementDate),
+            dueDate: new Date(dueDate),
+            currentBalance: +currentBalance,
+            minimumPayment: +minimumPayment,
+            paidDate: new Date(paidDate),
+            comments: comments,
+            creditorId: creditorId
+        })
+        .then(res => {
+            console.log("Payment Saved");
+        })
+        .catch(err => {
+            console.log(err);
+        });        
+
+
 
     }
 
@@ -51,10 +68,20 @@ const PaymentEntry = () => {
         setDueDate(e.target.value);
     }
 
+    const paidDateChange = (e) => {
+        console.log(e.target.value);
+        setPaidDate(e.target.value);
+    }    
+
+    const commentsChange = (e) => {
+        console.log(e.target.value);
+        setComments(e.target.value);
+    }      
+
     const handleCreditorChange = (e) => {
         setCreditorId(e.target.value);
         console.log(e.target.value);
-    }
+    }    
 
 
         if (loading) {
@@ -66,11 +93,11 @@ const PaymentEntry = () => {
                 <div className="jumbotron">
                     <Heading />
                     <div className="px-6">
-                        <form className="text-primary col-8 mx-auto mt-5" onSubmit={handleSubmit}>
+                        <form className="text-primary col mx-auto mt-5" onSubmit={handleSubmit}>
                             <div className="row ml-1">
                                 { creditors.length ? (
-                                    <div className="row mx-auto text-center">
-                                        <label className="col-5 lead font-weight-bold" htmlFor="creditorCode">Company Name</label>
+                                    <div className="row form-group mx-auto">
+                                        <label className="lead font-weight-bold mr-2" htmlFor="creditorCode">Company Name</label>
                                         <select name="creditorCode" className="form-control col-7" onChange={(e) => handleCreditorChange(e)}>
                                             <option>Select Creditor for Payment Due</option>
                                             { creditors.map(creditor => {
@@ -79,26 +106,39 @@ const PaymentEntry = () => {
                                         </select>
                                     </div> ) : <div>""</div> }
                             </div>
-                            <div className="row ml-1 mt-4">
-                                <div className="form-group col-xs-1">
+                            <div className="row ml-1">
+                                <div className=" col form-group">
                                     <label className="lead font-weight-bold" htmlFor="statementDate">Statement Date</label>
-                                    <input onChange={statementDateChange} value={ dueDate } name="statementDate" type="date" className="form-control" id="statementDate"/>
+                                    <input onChange={statementDateChange} value={ statementDate } name="statementDate" type="date" className="form-control" id="statementDate"/>
                                 </div>
-                                <div className="form-group ml-5">
+                                <div className="col form-group ml-5">
                                     <label className="lead font-weight-bold" htmlFor="dueDate">Due Date</label>
                                     <input onChange={dueDateChange} value={ dueDate } name="dueDate" type="date" className="form-control" id="dueDate"/>
-                                </div>                        
+                                </div>  
+                                <div className=" col form-group">
+                                    <label className="lead font-weight-bold" htmlFor="statementDate">Statement Date</label>
+                                    <input onChange={paidDateChange} value={ paidDate } name="paidDate" type="date" className="form-control" id="paidDate"/>
+                                </div>                                                      
                             </div>
-                            <div className="row ml-1 mt-4">
-                                <div className="form-group col-xs-1">
+                            <div className="row ml-1">
+                                <div className="col form-group">
                                 <label className="lead font-weight-bold" htmlFor="currentBalance">Current Balance</label>
                                     <input type="text" name="currentBalance" value={ currentBalance } onChange={(e) => currentBalanceChange(e)} className="form-control" id="request-title" placeholder="" />
                                 </div>
-                                <div className="form-group ml-5">
+                                <div className="col form-group ml-5">
                                     <label className="lead font-weight-bold" htmlFor="minimumPayment">Minimum Payment</label>
                                     <input type="text" name="minimumPayment" value={ minimumPayment } onChange={(e) => minimumPaymentChange(e)} className="form-control" id="request-title" placeholder="" />
                                 </div>                        
                             </div>
+                            <div className="row ml-1">
+                                <div className="col form-group">
+                                    <label htmlFor="comments" className="lead font-weight-bold">Comments</label>
+                                    <textarea className="form-control" id="comments" rows="3" name="comments" value={ comments } onChange={(e) => commentsChange(e)}></textarea>
+                                </div>                    
+                            </div>          
+                            <div className="row ml-1 text-center">
+                                    <button type="submit" className="btn btn-primary mx-3 px-3">Save Payment</button>  
+                            </div>                                            
                         </form>
                     </div>
                 </div>

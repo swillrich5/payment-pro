@@ -41,11 +41,12 @@ router.get('/payment/:id', async (req, res) => {
 // @desc    Create a payment (due) for a creditor
 // @access  Public
 router.post('/', async (req, res) => {
-    const { statementDate, currentBalance, minimumPayment, paidDate, comments, creditorId } = req.body;
+    const { statementDate, dueDate, currentBalance, minimumPayment, paidDate, comments, creditorId } = req.body;
 
     try {
         payment = new Payment({
             statementDate,
+            dueDate,
             currentBalance,
             minimumPayment,
             paidDate,
