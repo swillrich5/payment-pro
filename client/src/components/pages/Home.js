@@ -32,11 +32,23 @@ const Home = () => {
       return (
         <div className="jumbotron mt-3">
           <Heading />
-          {(!loading) && creditors.map(creditor => {
-              return (
-                <p key={ creditor._id}>{creditor.companyName}</p>
-              )
-          })}
+          <div>
+            <table className="table">
+              <tr>
+                <th scope="col">Creditor Name</th><th scope="col">Cardholder</th>
+              </tr>
+              {(!loading) && creditors.map(creditor => {
+                  return (
+                    <tr key={ creditor._id}>
+                      <td >{creditor.companyName}</td>
+                      <td >{creditor.cardholderName}</td>
+                    </tr>
+                  )
+              })}
+            </table>
+
+          </div>
+
         </div>
       )
     }
