@@ -35,13 +35,16 @@ const Home = () => {
           <div>
             <table className="table">
               <tr>
-                <th scope="col">Creditor Name</th><th scope="col">Cardholder</th>
+                <th scope="col">Creditor Name</th><th scope="col">Cardholder</th><th>Card/Payment Type</th><th>Ending In</th><th>Interest %</th>
               </tr>
               {(!loading) && creditors.map(creditor => {
                   return (
                     <tr key={ creditor._id}>
-                      <td >{creditor.companyName}</td>
-                      <td >{creditor.cardholderName}</td>
+                      <td>{creditor.companyName}</td>
+                      <td>{creditor.cardholderName}</td>
+                      <td>{creditor.cardType}</td>
+                      <td>{creditor.endingIn}</td>
+                      <td>{creditor.interestRate}</td>
                     </tr>
                   )
               })}
