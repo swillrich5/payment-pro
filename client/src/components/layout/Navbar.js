@@ -19,9 +19,17 @@ const Navbar = ({ title, icon }) => {
                             <Link className="nav-link dropdown-item navbar-dark bg-primary" to='/'>Home</Link>
                             <Link className="nav-link dropdown-item navbar-dark bg-primary" to='/creditor'>Creditor Entry</Link> 
                             <Link className="nav-link dropdown-item navbar-dark bg-primary" to='/payment'>Payment Entry</Link>  
-                            <Link className="nav-link dropdown-item navbar-dark bg-primary" to='/about'>About</Link>  
                         </div>
                     </li>
+                    <li className="nav-item dropdown navbar-dark bg-primary">
+                        <a className="nav-link dropdown-toggle" href="/" id="navbarDropdown" data-toggle="dropdown">Analytics</a>
+                        <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <Link className="nav-link dropdown-item navbar-dark bg-primary" to='/'>Payment History</Link>
+                            <Link className="nav-link dropdown-item navbar-dark bg-primary" to='/'>Creditor List</Link> 
+                            <Link className="nav-link dropdown-item navbar-dark bg-primary" to='/'>Payment Entry</Link>  
+                        </div>
+                    </li>                    
+                    <Link className="nav-link navbar-dark bg-primary" to='/about'>About</Link>  
                 </ul>
             </div>                     
         </nav>
