@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import Heading from '../layout/Heading';
 import Spinner from '../../components/Spinner';
 import API from '../../utils/API';
+import '../../App.css';
 // import { useEffect } from 'react/cjs/react.production.min';
 
 const Home = () => {
@@ -28,12 +30,11 @@ const Home = () => {
       )
     } else {
       return (
-        <div>
-          <h2>This page will display all of the bills, highlighting those that are due.</h2>
+        <div className="jumbotron mt-3">
+          <Heading />
           {(!loading) && creditors.map(creditor => {
               return (
                 <p key={ creditor._id}>{creditor.companyName}</p>
-                  
               )
           })}
         </div>
